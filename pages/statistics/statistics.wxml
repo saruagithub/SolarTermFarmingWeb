@@ -1,0 +1,29 @@
+<!--pages/statistics/statistics.wxml-->
+<view class="list-tab">
+    <ul>
+        <li class="{{current == 0 ? 'active' : ''}}" catchtap="switchSlider" data-index="0">本周</li>
+        <li class="{{current == 1 ? 'active' : ''}}" catchtap="switchSlider" data-index="1">本月</li>
+        <li class="{{current == 2 ? 'active' : ''}}" catchtap="switchSlider" data-index="2">今年</li>
+    </ul>
+</view>
+  <view class='chart'>
+    <canvas class='canvas1' canvas-id='columnCanvas'></canvas>
+  </view>
+  <view class='panChart'><canvas class='canvas2' canvas-id='ringCanvas1'></canvas></view>
+  <view class='panChart'><canvas class='canvas3' canvas-id='ringCanvas2'></canvas></view>
+  <view class='wrapper'>
+    <view class='content'>
+      <view class='content_part content_seed'>
+        <navigator url="../seedlist/seedlist">
+          <text>排名 </text>
+          <text>{{goal_seednum}}</text>
+        </navigator>
+      </view>
+      <!-- <view class='content_part content_fruits'>
+        <navigator url="">
+          <text>完成果实 </text>
+          <text>{{goal_fruitnum}}</text>
+        </navigator>
+      </view> -->
+  </view>
+</view>

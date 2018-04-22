@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "dialog": "../components/dialog/dialog"
+  },
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#13D1BE",
+  "navigationBarTitleText": "目标种子",
+  "navigationBarTextStyle": "white"
+}

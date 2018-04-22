@@ -1,3 +1,4 @@
+<!--pages/fruitlist/fruitlist.wxml-->
 <view class="list-tab">
     <ul>
         <li class="{{current == 0 ? 'active' : ''}}" catchtap="switchDate" data-index="0">本周</li>
@@ -12,11 +13,11 @@
     <swiper-item>
       <scroll-view scroll-y="true" class="scroll-box">
         <view class="list-view" >
-          <view class="list-box" wx:for="{{listgoods}}" wx:for-item="list" wx:key="index" data-id="{{list.record_id}}" bindtap="lookdetail">
-              <!-- <view class="list-images" ><image src="{{list.fruit_img}}" /></view>  -->
+          <view class="list-box" wx:for="{{listgoods}}" wx:for-item="list" wx:key="index" data-id="{{list.id}}" bindtap="lookdetail">
+              <view class="list-images" ><image src="{{list.pic_url}}" /></view>
               <view class="list-text">
-                  <view class="name"><text>{{list.content}}</text></view>
-                  <view class="txt"><text>{{list.due_time}}</text></view>
+                  <view class="name"><text>{{list.title}}</text></view>
+                  <view class="txt"><text>{{list.time}}</text></view>
               </view>
           </view>
           </view>
@@ -27,11 +28,11 @@
     <swiper-item>
       <scroll-view scroll-y="true" class="scroll-box">
         <view class="list-view" >
-          <view class="list-box" wx:for="{{listgoods}}" wx:for-item="list" wx:key="index" data-id="{{list.record_id}}" bindtap="lookdetail">
-              <!-- <view class="list-images" ><image src="{{list.fruit_img}}" /></view> -->
+          <view class="list-box" wx:for="{{listgoods}}" wx:for-item="list" wx:key="index" data-id="{{list.id}}" bindtap="lookdetail">
+              <view class="list-images" ><image src="{{list.pic_url}}" /></view>
               <view class="list-text">
-                  <view class="name"><text>{{list.content}}</text></view>
-                  <view class="txt"><text>{{list.due_time}}</text></view>
+                  <view class="name"><text>{{list.title}}</text></view>
+                  <view class="txt"><text>{{list.time}}</text></view>
               </view>
           </view>
           </view>
@@ -41,11 +42,11 @@
     <swiper-item>
       <scroll-view scroll-y="true" class="scroll-box">
         <view class="list-view" >
-          <view class="list-box" wx:for="{{listgoods}}" wx:for-item="list" wx:key="index" data-id="{{list.record_id}}" bindtap="lookdetail">
-              <!-- <view class="list-images" ><image src="{{list.pic_url}}" /></view> -->
+          <view class="list-box" wx:for="{{listgoods}}" wx:for-item="list" wx:key="index" data-id="{{list.id}}" bindtap="lookdetail">
+              <view class="list-images" ><image src="{{list.pic_url}}" /></view>
               <view class="list-text">
-                  <view class="name"><text>{{list.content}}</text></view>
-                  <view class="txt"><text>{{list.due_time}}</text></view>
+                  <view class="name"><text>{{list.title}}</text></view>
+                  <view class="txt"><text>{{list.time}}</text></view>
               </view>
           </view>
           </view>
@@ -55,7 +56,7 @@
 </swiper>
 
 <view class='btn'>
-  <navigator url="../newseed/newseed">
-    <image src='../image/add_btn.png'></image>
+  <navigator url="../statistics/statistics">
+    <image src='../image/statistics_btn.png'></image>
   </navigator>
 </view>

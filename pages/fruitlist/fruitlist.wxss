@@ -1,3 +1,4 @@
+/* pages/fruitlist/fruitlist.wxss */
 page{
   height: 100%;
 }
