@@ -4,6 +4,8 @@ Page({
   data: {
     current: 0,
     listgoods1: [],
+    listgoods2: [],
+    listgoods3: [],
     swiper: {
       indicatorDots: false,
       autoplay: false,

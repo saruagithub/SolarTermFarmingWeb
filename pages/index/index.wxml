@@ -9,9 +9,9 @@
 
 <swiper class="swiper-box"  current="{{current}}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="changeDate">
   <block wx:if="{{showData}}">
-    <view class="page-nodata">
+    <!-- <view class="page-nodata"> -->
       <text class="hinttext">暂无种子</text>
-    </view>
+    <!-- </view> -->
   </block>
   
   <block wx:else>
@@ -73,6 +73,7 @@
       </scroll-view>
     </swiper-item>
   </block>
+
 </swiper>
 
 <view class='btn'>

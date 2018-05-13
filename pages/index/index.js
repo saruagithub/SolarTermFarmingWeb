@@ -44,13 +44,14 @@ Page({
             },
             success: function (res) {
               //problem？？？？？？？
-              if (res.data.data == []) {
+              if (res.data.data.length == 0) {
                 that.setData({
                   showData: true
                 })
               }
               else {
                 that.setData({
+                  showData:false,
                   listgoods1: res.data.data
                 });
               }
@@ -69,13 +70,14 @@ Page({
               'Content-Type': 'application/json'
             },
             success: function (res) {
-              if (res.data.data == []) {
+              if (res.data.data.length == 0) {
                 that.setData({
                   showData: true
                 })
               }
               else {
                 that.setData({
+                  showData: false,
                   listgoods2: res.data.data
                 });
               }
@@ -94,10 +96,17 @@ Page({
               'Content-Type': 'application/json'
             },
             success: function (res) {
-              that.setData({
-                listgoods3: res.data.data
-              });
-              console.log(res.data)
+              if (res.data.data.length == 0) {
+                that.setData({
+                  showData: true
+                })
+              }else{
+                that.setData({
+                  showData: false,
+                  listgoods3: res.data.data
+                });
+              }
+              console.log(res.data,that.data.showData)
             }
           });
         }
@@ -113,6 +122,7 @@ Page({
             },
             success: function (res) {
               that.setData({
+                showData: false,
                 listgoods4: res.data.data
               });
               console.log(res.data)
