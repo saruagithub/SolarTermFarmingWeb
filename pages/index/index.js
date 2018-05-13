@@ -2,12 +2,11 @@ var app = getApp()
 Page({
   data: {
     current: 0,
-    listgoods: [{
-      "record_id": '0101001',
-      "content": "完成毕业设计，深度学习",
-      "due_time": "2018/3/4 15:00",
-      "fruit_img": "../image/bean.png"
-    }],
+    showData: false,
+    listgoods1: [],
+    listgoods2: [],
+    listgoods3: [],
+    listgoods4: [],
     swiper: {
       indicatorDots: false,
       autoplay: false,
@@ -16,54 +15,134 @@ Page({
     }
   },
   onPullDownRefresh: function () {
+    this.queryData();
     console.log('onPullDownRefresh')
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    this.queryData();
+  },
+  //week data
+  queryData:function(){
     var that = this;
-    var nickName;
-    //username
-    wx.getUserInfo({
+    //ajax请求数据
+    var userId;
+    wx.getStorage({
+      key: 'userId',
       success: function (res) {
-        var userInfo = res.userInfo
-        nickName = userInfo.nickName
-        console.log(nickName)
+        userId = res.data;
+        console.log("PassUserId1:", userId);
+        //get page week data
+        if(that.data.current == 0){
+          wx.request({
+            url: getApp().data.servsers + '/query_week_seeds',
+            data: {
+              user_id: userId
+            },
+            header: {
+              'Content-Type': 'application/json'
+            },
+            success: function (res) {
+              //problem？？？？？？？
+              if (res.data.data == []) {
+                that.setData({
+                  showData: true
+                })
+              }
+              else {
+                that.setData({
+                  listgoods1: res.data.data
+                });
+              }
+              console.log(res.data)
+            }
+          });
+        }
+        if (that.data.current == 1){
+          //get page month data
+          wx.request({
+            url: getApp().data.servsers + '/query_month_seeds',
+            data: {
+              user_id: userId
+            },
+            header: {
+              'Content-Type': 'application/json'
+            },
+            success: function (res) {
+              if (res.data.data == []) {
+                that.setData({
+                  showData: true
+                })
+              }
+              else {
+                that.setData({
+                  listgoods2: res.data.data
+                });
+              }
+              console.log(res.data)
+            }
+          });
+        }
+        if (that.data.current == 2 ){
+          //get page year data
+          wx.request({
+            url: getApp().data.servsers + '/query_year_seeds',
+            data: {
+              user_id: userId
+            },
+            header: {
+              'Content-Type': 'application/json'
+            },
+            success: function (res) {
+              that.setData({
+                listgoods3: res.data.data
+              });
+              console.log(res.data)
+            }
+          });
+        }
+        if (that.data.current == 3){
+          //get page later data
+          wx.request({
+            url: getApp().data.servsers + '/query_over_due_date_seeds',
+            data: {
+              user_id: userId
+            },
+            header: {
+              'Content-Type': 'application/json'
+            },
+            success: function (res) {
+              that.setData({
+                listgoods4: res.data.data
+              });
+              console.log(res.data)
+            }
+          });
+        }
       }
     })
-    //ajax请求数据
-    wx.request({
-      url: 'https://d6b55dbf.ngrok.io/query_fruits/雪音',
-          header: {
-              'Content-Type': 'application/json'
-          },
-          success: function(res) {
-              // switch1(res.data);
-              console.log(res.data);
-              that.setData({
-                  listgoods:res.data
-              });
-          }
-        })
-    console.log(this.data.listgoods);
   },
   //详情页跳转
   lookdetail: function (e) {
     var lookid = e.currentTarget.dataset;
-    console.log(e.currentTarget.dataset.id);
+    console.log("lookid",lookid)
     wx.navigateTo({
+      // url: '../detail/detail?id=' + ds.id + '&title=' + ds.title + '&type=coming'
       // url: "/pages/yiguo/detail/detail?id=" + lookid.id
-      url: "/pages/detail/detail"
+      url: '/pages/detail/detail?id='+ lookid.id +''
     })
   },
-  switchSlider: function (e) {
+  switchDate: function (e) {
     this.setData({
       current: e.target.dataset.index
     })
+    this.queryData()
   },
-  changeSlider: function (e) {
+  changeDate: function (e) {
     this.setData({
       current: e.detail.current
     })
+    this.queryData()
   },
   onReady: function () {
     // 页面渲染完成

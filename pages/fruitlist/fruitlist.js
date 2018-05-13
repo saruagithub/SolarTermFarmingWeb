@@ -3,47 +3,7 @@ var app = getApp()
 Page({
   data: {
     current: 0,
-    listgoods: [{
-      "id": '0101001',
-      "title": "完成毕业设计，深度学习",
-      "time": "2018/3/4 15:00",
-      "pic_url": "../image/watermelon.png"
-    }, {
-      "id": '0101001',
-      "title": "本周跑步3次，坚持",
-      "time": "2018/3/4 15:00",
-      "pic_url": "../image/pear.png"
-    }, {
-      "id": '0101001',
-      "title": "沛新西兰阳光金奇异果",
-      "time": "2018/3/4 15:00",
-      "pic_url": "../image/banana.png"
-    }, {
-      "id": '0101001',
-      "title": "沛新西兰阳光金奇异果",
-      "time": "2018/3/4 15:00",
-      "pic_url": "../image/cherry.png"
-    }, {
-      "id": '0101001',
-      "title": "沛新西兰阳光金奇异果",
-      "time": "2018/3/4 15:00",
-      "pic_url": "../image/apple.png"
-    }, {
-      "id": '0101001',
-      "title": "沛新西兰阳光金奇异果",
-      "time": "2018/3/4 15:00",
-      "pic_url": "../image/orange.png"
-    }, {
-      "id": '0101001',
-      "title": "沛新西兰阳光金奇异果",
-      "time": "2018/3/4 15:00",
-      "pic_url": "../image/pineapple.png"
-    }, {
-      "id": '0101001',
-      "title": "沛新西兰阳光金奇异果",
-      "time": "2018/3/4 15:00",
-      "pic_url": "../image/grape.png"
-    }],
+    listgoods1: [],
     swiper: {
       indicatorDots: false,
       autoplay: false,
@@ -57,22 +17,30 @@ Page({
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     var that = this;
-    //ajax请求数据
-    // wx.request({
-    //         url: 'http://www.htmlk.cn/json-test/lists.json',
-    //         header: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         success: function(res) {
-    //            switch1(res.data);
-    //            console.log(res.data);
-    //            that.setData({
-    //                listgoods:res.data
-    //            });
-    //         }
-    //     })
-    //对商品进行价格排序
-    console.log(this.data.listgoods);
+    var userId;
+    wx.getStorage({
+      key: 'userId',
+      success: function (res) {
+        userId = res.data;
+        //console.log("PassUserId1:", userId); 
+        //get page data
+        wx.request({
+          url: getApp().data.servsers + '/query_week_fruits',
+          data: {
+            user_id: userId
+          },
+          header: {
+            'Content-Type': 'application/json'
+          },
+          success: function (res) {
+            console.log(res.data);
+            that.setData({
+              listgoods1: that.data.listgoods1.concat(res.data.data)
+            });
+          }
+        })
+      }
+    })
   },
   //详情页跳转
   lookdetail: function (e) {
@@ -83,12 +51,13 @@ Page({
       url: "/pages/detail/detail"
     })
   },
-  switchSlider: function (e) {
+  //本周、本月、今年更新数据显示
+  switchDate: function (e) {
     this.setData({
       current: e.target.dataset.index
     })
   },
-  changeSlider: function (e) {
+  changeDate: function (e) {
     this.setData({
       current: e.detail.current
     })

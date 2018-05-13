@@ -2,6 +2,9 @@
 page{
   height: 100%;
 }
+.scroll-box{
+  height: 100%;
+}
 .list-tab{
   height: 80rpx;
   padding: 5rpx;

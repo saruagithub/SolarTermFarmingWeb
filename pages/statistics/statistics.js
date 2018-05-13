@@ -1,4 +1,3 @@
-var url = 'http://47.106.137.199:5001'
 const app = getApp()
 var wxCharts = require('../../utils/wxcharts.js');
 var nickName; //username
@@ -10,29 +9,65 @@ Page({
    */
   data: {
     current: 0,
-    goal_seednum: 0,
-    goal_fruitnum: 0,
-    // watermelonNum:0,
+    finishedTypeData: [],
     finishRate: 10,
-    laterRate: 20
+    laterRate: 20,
+    swiper: {
+      indicatorDots: false,
+      autoplay: false,
+      interval: 5000,
+      duration: 1000
+    }
   },
-  getFruitData: function () {
-    var that = this
-    const requestTask = wx.request({
-      url: 'https://ade3585d.ngrok.io/seed_count/雪音',
-      method: 'POST',
-      header: {
-        'content-type': 'application/json'
-      },
+  /**
+ * 生命周期函数--监听页面加载，页面渲染后 执行
+ */
+  onLoad: function (options) {
+    wx.getUserInfo({
       success: function (res) {
-        console.log(res.data)
-        // 设置界面数据???
+        var userInfo = res.userInfo
+        nickName = userInfo.nickName
+        console.log(nickName)
       }
     })
-    requestTask.abort() // 取消请求任务???
+    this.getFruitData();
+    this.creatPieChart1();
+    this.creatPieChart2();
+  },
+
+  getFruitData: function () {
+    var that = this;
+    var userId;
+    wx.getStorage({
+      key: 'userId',
+      success: function (res) {
+        userId = res.data;
+        console.log("statistics,PassUserId:", userId);
+        //get page data
+        wx.request({
+          url: getApp().data.servsers + '/query_year_all_count',
+          data: {
+            user_id: userId
+          },
+          header: {
+            'Content-Type': 'application/json'
+          },
+          success: function (res) {
+            // that.setData({
+            //   finishedTypeData: res.data.data
+            // });
+            that.finishedTypeData = res.data.data;
+            console.log(res.data);
+            console.log(that.finishedTypeData);
+            that.createColumnChart();
+          }
+        })
+      }
+    })
   },
 
   createColumnChart: function () {
+    var that = this;
     var fruitTotall = 44;
     //charts
     try {
@@ -48,8 +83,12 @@ Page({
       type: 'column',
       categories: ['健康', '学习', '生活', '工作', '阅读', '情感', '兴趣', '其他'],
       series: [{
-        name: '收获果实总数' + fruitTotall,
-        data: [10, 3, 4, 5, 3, 6, 4, 9],
+        // name: '收获果实总数' + fruitTotall,
+        name: '收获果实数',
+        data: [that.finishedTypeData["健康"], that.finishedTypeData["学习"], 
+          that.finishedTypeData["生活"], that.finishedTypeData["工作"], 
+          that.finishedTypeData["阅读"], that.finishedTypeData["情感"],
+          that.finishedTypeData["兴趣"], that.finishedTypeData["其他"]],
         color: '#F6BA33'
       }],
       yAxis: {
@@ -116,30 +155,19 @@ Page({
       dataLabel: false
     });
   },
-  /**
-   * 生命周期函数--监听页面加载，页面渲染后 执行
-   */
-  onLoad: function (options) {
-    wx.getUserInfo({
-      success: function (res) {
-        var userInfo = res.userInfo
-        nickName = userInfo.nickName
-        console.log(nickName)
-      }
-    })
-    this.getFruitData();
-    this.createColumnChart();
-    this.creatPieChart1();
-    this.creatPieChart2();
-  },
 
   //本周、本月、今年更新数据显示
   switchDate: function (e) {
     this.setData({
       current: e.target.dataset.index
     })
-    //调用getFruitData，更新全部数据
   },
+  changeDate: function (e) {
+    this.setData({
+      current: e.detail.current
+    })
+  },
+    //调用getFruitData，更新全部数据
 
 
   /**

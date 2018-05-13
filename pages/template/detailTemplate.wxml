@@ -1,0 +1,53 @@
+<!--pages/template/detailTemplate.wxml-->
+<template name="goalDetailTemplate">
+  <view class='newSeed'>
+    <form bindsubmit='submitNewSeed'>
+    <!-- chose type -->
+      <view class='section'>
+        <view class="section_title">类型</view>
+        <view class='form-group'>  
+            <picker bindchange="typePickerChange" value="{{index}}" range="{{aspectArray}}">  
+                <view class="picker">  
+                  <!-- <input class='aspectType' name="aspect_type" value="{{aspect_array[index]}}"/>{{aspect_array[index]}} -->
+                  <!-- <view class="goal-images" ><image src="{{aspectArray[imgurl]}}" /></view> -->
+                  {{aspectArray[index]}}
+                </view>
+            </picker>  
+        </view> 
+      </view>
+
+  <!-- input goal -->
+      <view class='section'>
+        <view class="section_title">目标</view>  
+        <view class='form-group'>  
+          <input type="text" class="input-text" name="seedtitle" bindblur="inputTitle"/>  
+        </view>  
+      </view>
+
+  <!-- chose due_time -->
+      <view class='section'>
+        <view class="section_title">截止时间</view> 
+        <view class='form-group'>
+          <!-- <slider value="360" name="slider" show-value ></slider> -->
+            <radio-group class="due_date" bindchange="dueDateChange">  
+              <label><radio value="1" checked="{{true}}"/>本周</label>  
+              <label><radio value="2"/>本月</label> 
+              <label><radio value="3"/>今年</label> 
+            </radio-group>
+        </view> 
+      </view>
+      <view class='content_section'>
+        <view class="section_title">具体内容</view>
+          <view class="textarea">
+            <textarea maxlength="500" bindinput="bindTextAreaBlur" adjust-position="{{true}}"/>
+          </view>
+      </view>
+    </form>
+  </view>
+
+  <view class='btn'> 
+    <!-- <button class='ok' bindtap=''> -->
+      <image src="{{btnImage}}" bindtap='submitNewSeed'></image> 
+    <!-- </button> -->
+  </view>
+</template>

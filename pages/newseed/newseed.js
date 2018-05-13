@@ -5,16 +5,137 @@ Page({
    * 页面的初始数据
    */
   data: {
-    aspect_array:["健康苹果","学习西瓜","生活香蕉","工作樱桃","阅读梨子","情感橘子","兴趣菠萝","其他葡萄"]
+    item: {
+      aspectArray: ["健康苹果", "学习西瓜", "生活香蕉", "工作樱桃", "阅读梨子", "情感橘子", "兴趣菠萝", "其他葡萄"],
+      objectAspectArray: [
+        {
+          id: 0,
+          name: '健康苹果',
+        }, {
+          id: 1,
+          name: '学习西瓜'
+        }, {
+          id: 2,
+          name: '生活香蕉'
+        }, {
+          id: 3,
+          name: '工作樱桃'
+        },
+        {
+          id: 4,
+          name: '阅读梨子'
+        }, {
+          id: 5,
+          name: '情感橘子'
+        }, {
+          id: 6,
+          name: '兴趣菠萝'
+        }, {
+          id: 7,
+          name: '其他葡萄'
+        }
+      ],
+      index: 0,
+      btnImage: '../image/finish_btn.png'
+    },
+    record: { aspect: 1, title: "", content: "", plan_type: 1},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
   },
 
+  typePickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var that = this
+    var aspect = 'record.aspect'
+    var index = 'item.index'
+    that.setData({
+      [index]: e.detail.value,
+      [aspect]: parseInt(e.detail.value) + 1
+      // record.aspect : e.detail.value + 1,
+    })
+  },
+
+  inputTitle:function(e){
+    console.log('input title change，携带值为', e.detail.value)
+    var that = this
+    var title = 'record.title'
+    that.setData({
+      [title]: e.detail.value,
+    })
+  },
+
+  dueDateChange: function (e) {
+    console.log('dueDateChange事件，携带value值为：', e.detail.value)
+    var that = this
+    var plan_type = 'record.plan_type'
+    that.setData({
+      [plan_type]: parseInt(e.detail.value),
+    })
+  },
+
+  bindTextAreaBlur:function(e){
+    console.log('bindTextAreaBlur change，携带的value值', e.detail.value)
+    var that = this
+    var content = 'record.content'
+    that.setData({
+      [content]: e.detail.value,
+    })
+  },
+
+  submitNewSeed:function(){
+    var that = this;
+    console.log(that.data.record)
+    if (that.data.record.title == ""){
+      console.log("不能为空");
+      wx.showModal({
+        title: '目标不能为空',
+        // content: '这是一个模态弹窗',
+        showCancel:false,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } 
+        }
+      })
+      return
+    }
+    //ajax请求数据
+    var userId;
+    wx.getStorage({
+      key: 'userId',
+      success: function (res) {
+        userId = res.data;
+        console.log("PassUserId1:", userId);
+        //post form data
+        wx.request({
+          url: getApp().data.servsers + '/insert',
+          method:'POST',
+          data:{
+            user_id: userId,
+            record: that.data.record
+          },
+          header:{
+            'Content-Type': 'application/json'
+          },
+          success:function(res){
+            wx.switchTab({
+              url: '../index/index',
+            })
+          },
+          fail:function(){
+            wx.showToast({
+              title: '新建目标失败',
+              duration: 1000
+            })
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

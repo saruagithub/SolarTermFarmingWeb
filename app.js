@@ -1,5 +1,9 @@
 //app.js
 App({
+  data: {
+    servsers: "https://www.plantgoal.com",
+    // servsers:"https://70aecedc.ngrok.io"
+  },
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -13,9 +17,13 @@ App({
         if (res.code) {
           //发起网络请求
           wx.request({
-            url: 'https://test.com/onLogin',
+            url: getApp().data.servsers + '/login',
             data: {
-              code: res.code
+              jscode: res.code
+            },
+            success: function(res) {
+              console.log("login res:",res.data.data);
+              wx.setStorageSync('userId',res.data.data);
             }
           })
         } else {

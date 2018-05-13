@@ -1,1 +1,6 @@
 /* pages/detail/detail.wxss */
+@import "../template/detailTemplate.wxss";
+
+page{
+  height: 100%;
+}

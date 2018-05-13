@@ -5,7 +5,8 @@
     "pages/fruitlist/fruitlist",
     "pages/statistics/statistics",
     "pages/detail/detail",
-    "pages/newseed/newseed"
+    "pages/newseed/newseed",
+    "pages/template/detailTemplate"
   ],
   "tabBar":{
     "color": "#888888",
