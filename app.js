@@ -1,8 +1,7 @@
 //app.js
 App({
   data: {
-    servsers: "https://www.goalplant.cn",
-    // servsers:"https://70aecedc.ngrok.io"
+    servsers:"https://70aecedc.ngrok.io"
   },
   onLaunch: function () {
     // 展示本地存储能力
