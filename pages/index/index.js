@@ -3,6 +3,7 @@ Page({
   data: {
     current: 0,
     showData: false,
+    listgoods0: [],
     listgoods1: [],
     listgoods2: [],
     listgoods3: [],
@@ -20,7 +21,7 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-    this.queryData();
+    // this.queryData();
   },
   //week data
   queryData:function(){
@@ -35,7 +36,7 @@ Page({
         //get page week data
         if(that.data.current == 0){
           wx.request({
-            url: getApp().data.servsers + '/query_week_seeds',
+            url: getApp().data.servsers + '/query_day_seeds',
             data: {
               user_id: userId
             },
@@ -52,17 +53,23 @@ Page({
               else {
                 that.setData({
                   showData:false,
-                  listgoods1: res.data.data
+                  listgoods0: res.data.data
                 });
               }
-              console.log(res.data)
+              console.log("day_seed:", res.data, that.data.showData)
+            },
+            fail: function () {
+              wx.showToast({
+                title: '服务器开小差啦',
+                duration: 1000
+              })
             }
           });
         }
         if (that.data.current == 1){
           //get page month data
           wx.request({
-            url: getApp().data.servsers + '/query_month_seeds',
+            url: getApp().data.servsers + '/query_week_seeds',
             data: {
               user_id: userId
             },
@@ -78,17 +85,23 @@ Page({
               else {
                 that.setData({
                   showData: false,
-                  listgoods2: res.data.data
+                  listgoods1: res.data.data
                 });
               }
-              console.log(res.data)
+              console.log("week_seed", res.data, that.data.showData)
+            },
+            fail: function () {
+              wx.showToast({
+                title: '服务器开小差啦',
+                duration: 1000
+              })
             }
           });
         }
         if (that.data.current == 2 ){
           //get page year data
           wx.request({
-            url: getApp().data.servsers + '/query_year_seeds',
+            url: getApp().data.servsers + '/query_month_seeds',
             data: {
               user_id: userId
             },
@@ -103,15 +116,53 @@ Page({
               }else{
                 that.setData({
                   showData: false,
-                  listgoods3: res.data.data
+                  listgoods2: res.data.data
                 });
               }
-              console.log(res.data,that.data.showData)
+              console.log("month_seed",res.data,that.data.showData)
+            },
+            fail: function () {
+              wx.showToast({
+                title: '服务器开小差啦',
+                duration: 1000
+              })
             }
           });
         }
         if (that.data.current == 3){
           //get page later data
+          wx.request({
+            url: getApp().data.servsers + '/query_year_seeds',
+            data: {
+              user_id: userId
+            },
+            header: {
+              'Content-Type': 'application/json'
+            },
+            success: function (res) {
+              if (res.data.data.length == 0) {
+                that.setData({
+                  showData: true
+                });
+                // console.log("*********")
+              } else {
+                that.setData({
+                  showData: false,
+                  listgoods3: res.data.data
+                });
+              }
+              console.log("year_seed", res.data, that.data.showData)
+            },
+            fail: function () {
+              wx.showToast({
+                title: '服务器开小差啦',
+                duration: 1000
+              })
+            }
+          });
+        }
+        if (that.data.current == 4) {
+          //get page month data
           wx.request({
             url: getApp().data.servsers + '/query_over_due_date_seeds',
             data: {
@@ -121,11 +172,24 @@ Page({
               'Content-Type': 'application/json'
             },
             success: function (res) {
-              that.setData({
-                showData: false,
-                listgoods4: res.data.data
-              });
-              console.log(res.data)
+              if (res.data.data.length == 0) {
+                that.setData({
+                  showData: true
+                })
+              }
+              else {
+                that.setData({
+                  showData: false,
+                  listgoods4: res.data.data
+                });
+              }
+              console.log("overdue", res.data, that.data.showData)
+            },
+            fail: function () {
+              wx.showToast({
+                title: '服务器开小差啦',
+                duration: 1000
+              })
             }
           });
         }
@@ -142,11 +206,20 @@ Page({
       url: '/pages/detail/detail?id='+ lookid.id +''
     })
   },
+
+  finishgoal:function(e){
+    var taskid = e.currentTarget.dataset;
+    console.log("taskid", taskid)
+    wx.navigateTo({
+      url: '/pages/rethink/rethink?id=' + taskid.id + '',
+    })
+  },
+
   switchDate: function (e) {
     this.setData({
       current: e.target.dataset.index
     })
-    this.queryData()
+    // this.queryData()
   },
   changeDate: function (e) {
     this.setData({
@@ -158,6 +231,7 @@ Page({
     // 页面渲染完成
   },
   onShow: function () {
+    this.queryData();
     // 页面显示
   },
   onHide: function () {

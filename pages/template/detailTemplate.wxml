@@ -1,18 +1,21 @@
 <!--pages/template/detailTemplate.wxml-->
 <template name="goalDetailTemplate">
+<scroll-view scroll-y="true">
   <view class='newSeed'>
-    <form bindsubmit='submitNewSeed'>
+    <form bindsubmit='submitNewSeed' report-submit='true'>
     <!-- chose type -->
       <view class='section'>
         <view class="section_title">类型</view>
         <view class='form-group'>  
-            <picker bindchange="typePickerChange" value="{{index}}" range="{{aspectArray}}">  
-                <view class="picker">  
-                  <!-- <input class='aspectType' name="aspect_type" value="{{aspect_array[index]}}"/>{{aspect_array[index]}} -->
-                  <!-- <view class="goal-images" ><image src="{{aspectArray[imgurl]}}" /></view> -->
+            <picker disabled="{{whetherEdit}}" bindchange="typePickerChange" value="{{index}}" range="{{aspectArray}}">  
+                <view class="picker">
                   {{aspectArray[index]}}
                 </view>
-            </picker>  
+                <image wx:if="{{whetherEdit != 1}}" class='pulldownbtn' src='../image/pull_down.png'></image>
+            </picker>
+            <!-- <view class="picker" wx:else>
+              {{aspectArray[index]}}
+            </view>   -->
         </view> 
       </view>
 
@@ -20,7 +23,8 @@
       <view class='section'>
         <view class="section_title">目标</view>  
         <view class='form-group'>  
-          <input type="text" class="input-text" name="seedtitle" bindblur="inputTitle"/>  
+          <input disabled="{{whetherEdit}}" type="text" class="input-text" name="seedtitle" bindblur="inputTitle" value='{{title}}' placeholder='请输入目标标题' placeholder-style='font-size: 10pt'/>
+          <!-- <text class='input-text' wx:else>{{title}}</text> -->
         </view>  
       </view>
 
@@ -28,26 +32,42 @@
       <view class='section'>
         <view class="section_title">截止时间</view> 
         <view class='form-group'>
-          <!-- <slider value="360" name="slider" show-value ></slider> -->
-            <radio-group class="due_date" bindchange="dueDateChange">  
-              <label><radio value="1" checked="{{true}}"/>本周</label>  
-              <label><radio value="2"/>本月</label> 
-              <label><radio value="3"/>今年</label> 
+          <radio-group wx:if="{{whetherEditDueDate == 1}}" class="due_date" bindchange="dueDateChange">
+            <label class="ui-radio {{item.checked=='true'? 'active':''}}" wx:for="{{dateitems}}">
+              <radio value="{{item.value}}" checked="{{item.checked}}"/>
+              <text class="text">{{item.name}}</text>
+            </label>
+              <!-- <label><radio value="1" checked='true' disabled="{{whetherEdit}}"/>本周</label>   -->
+              <!-- <label><radio value="2" disabled="{{whetherEdit}}"/>本月</label>  -->
+              <!-- <label><radio value="3" disabled="{{whetherEdit}}"/>今年</label>  -->
             </radio-group>
+             <text class='input-text' wx:else>{{dueDate}}<text style='font-size: 8pt; color:#b2b2b2;'> 不可再改</text></text> 
         </view> 
       </view>
       <view class='content_section'>
         <view class="section_title">具体内容</view>
           <view class="textarea">
-            <textarea maxlength="500" bindinput="bindTextAreaBlur" adjust-position="{{true}}"/>
+            <textarea maxlength="500" bindinput="bindTextAreaBlur" adjust-position="{{true}}" placeholder="请输入文本" value="{{content}}" disabled="{{whetherEdit}}"/>
           </view>
+          <!-- <view maxlength="500" class="textarea" wx:else>{{content}}</view> -->
+      </view>
+
+      <!-- summary -->
+      <view class='content_section section-line' wx:if="{{showsummary == 1}}">
+        <view class="section_title">反思感悟</view>
+          <view class="textarea">
+            <textarea maxlength="500" bindinput="bindTextAreaBlur1" adjust-position="{{true}}" placeholder="请输入文本" value="{{summary}}" disabled="{{whetherEdit}}"/>
+          </view>
+          <!-- <view maxlength="500" class="textarea" wx:else>{{content}}</view> -->
       </view>
     </form>
   </view>
+</scroll-view>
 
   <view class='btn'> 
     <!-- <button class='ok' bindtap=''> -->
-      <image src="{{btnImage}}" bindtap='submitNewSeed'></image> 
+      <image src='../image/finish_btn.png' bindtap='submitNewSeed' wx:if="{{finishbtn == 1}}"></image> 
+      <image src='../image/write_btn.png' bindtap='edit' wx:if="{{editbtn == 1}}"></image> 
     <!-- </button> -->
   </view>
 </template>

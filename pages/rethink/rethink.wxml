@@ -1,0 +1,10 @@
+<!--pages/rethink/rethink.wxml-->
+<view class='page'>
+  <view class="textarea">
+    <textarea placeholder="请记录下目标完成后的思考、感悟，你会收获更多" placeholder-class='txt' bindinput='bindTextAreaBlur'/>
+  </view>
+  <view class='btn'> 
+  <!-- <button class='ok' bindtap=''> -->
+    <image src='../image/finish_btn.png' bindtap='submitthoughts'></image> 
+  </view>
+</view>

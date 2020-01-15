@@ -6,6 +6,9 @@ Page({
    */
   data: {
     item: {
+      whetherEdit:0,
+      whetherEditDueDate:1,
+      showsummary:0,
       aspectArray: ["健康苹果", "学习西瓜", "生活香蕉", "工作樱桃", "阅读梨子", "情感橘子", "兴趣菠萝", "其他葡萄"],
       objectAspectArray: [
         {
@@ -35,10 +38,20 @@ Page({
           name: '其他葡萄'
         }
       ],
+      dateitems: [
+        { value: '4', name: '今日', checked: 'true' },
+        { value: '1', name: '本周'},
+        { value: '2', name: '本月'},
+        { value: '3', name: '今年'},
+      ],
       index: 0,
-      btnImage: '../image/finish_btn.png'
+      finishbtn:1,
+      editbtn:0,
+      // btnImage: '../image/finish_btn.png',
+      title:'',
+      plan_type:4,
+      content:''
     },
-    record: { aspect: 1, title: "", content: "", plan_type: 1},
   },
 
   /**
@@ -50,11 +63,11 @@ Page({
   typePickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     var that = this
-    var aspect = 'record.aspect'
+    // var aspect = 'record.aspect'
     var index = 'item.index'
     that.setData({
-      [index]: e.detail.value,
-      [aspect]: parseInt(e.detail.value) + 1
+      [index]: parseInt(e.detail.value),
+      // [aspect]: parseInt(e.detail.value) + 1
       // record.aspect : e.detail.value + 1,
     })
   },
@@ -62,7 +75,8 @@ Page({
   inputTitle:function(e){
     console.log('input title change，携带值为', e.detail.value)
     var that = this
-    var title = 'record.title'
+    // var title = 'record.title'
+    var title = 'item.title'
     that.setData({
       [title]: e.detail.value,
     })
@@ -70,26 +84,45 @@ Page({
 
   dueDateChange: function (e) {
     console.log('dueDateChange事件，携带value值为：', e.detail.value)
-    var that = this
-    var plan_type = 'record.plan_type'
+    var that = this;
+    var items = that.data.item.dateitems;
+    console.log(items)
+    for (var i = 0, len = items.length; i < len; ++i) {
+      if (items[i].checked == 'true') {
+        items[i].checked = 'false';
+        break;
+        //old one become black
+      }
+    }
+    for (var i = 0, len = items.length; i < len; ++i) {
+      if (items[i].value == parseInt(e.detail.value)) {
+        items[i].checked = 'true';
+        break;
+        // new one become green
+      }
+    }
+    var dateitems = 'item.dateitems'
+    var plan_type = 'item.plan_type'
     that.setData({
       [plan_type]: parseInt(e.detail.value),
-    })
+      [dateitems]:items
+    });
+    console.log('data',this.data)
   },
 
   bindTextAreaBlur:function(e){
     console.log('bindTextAreaBlur change，携带的value值', e.detail.value)
     var that = this
-    var content = 'record.content'
+    // var content = 'record.content'
+    var content = 'item.content'
     that.setData({
       [content]: e.detail.value,
     })
   },
 
-  submitNewSeed:function(){
+  submitNewSeed:function(e){
     var that = this;
-    console.log(that.data.record)
-    if (that.data.record.title == ""){
+    if (that.data.item.title == ""){
       console.log("不能为空");
       wx.showModal({
         title: '目标不能为空',
@@ -103,6 +136,8 @@ Page({
       })
       return
     }
+    // let formId = event.detail.formId;
+    // console.log(that.data.item,'notification ID:',formId)
     //ajax请求数据
     var userId;
     wx.getStorage({
@@ -116,7 +151,13 @@ Page({
           method:'POST',
           data:{
             user_id: userId,
-            record: that.data.record
+            // record: that.data.record
+            record:{
+              aspect:that.data.item.index+1,
+              title: that.data.item.title,
+              content: that.data.item.content,
+              plan_type:that.data.item.plan_type
+            }
           },
           header:{
             'Content-Type': 'application/json'
@@ -124,6 +165,11 @@ Page({
           success:function(res){
             wx.switchTab({
               url: '../index/index',
+              success: function (e) {
+                var page = getCurrentPages().pop();
+                if (page == undefined || page == null) return;
+                page.onLoad();
+              }
             })
           },
           fail:function(){
@@ -181,7 +227,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  // onShareAppMessage: function () {
   
-  }
+  // }
 })

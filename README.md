@@ -1,2 +1,1 @@
-# SolarTermFarming
-我们根据节气来制定目标计划，每阶段提示记录有意义的事情、感悟反思，这些记录将成为我们一生耕种的果实。
+# SolarTermFarmingWeb

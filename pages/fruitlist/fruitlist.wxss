@@ -9,22 +9,32 @@ page{
   height: 80rpx;
   padding: 5rpx;
 }
-.list-tab ul{
-  display: flex;
-  /* height: 72rpx; */
-  height: 70%;
-}
-.list-tab li{
-  flex: 1;
-  display: flex;
+.form-group{
+  width: 50%;
+  float: left;
   font-size: 11pt;
-  justify-content: center;
-  align-items: center;
   color: #888888;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
 }
-.list-tab .active{
+.day{
+  width: 40rpx;
+  float: left;
+  padding:10rpx;
+}
+picker{
+  width: 50rpx;
+  float: left; 
+  padding:10rpx;
+}
+.selectbtn{
+  text-align: center;
+  padding-top:10rpx; 
+}
+ .list-tab .active{
   color: #13D1BE;
-}
+}  
 /*list-box*/
 .list-view{
   border-top: 2rpx solid #EEE;
@@ -35,6 +45,14 @@ page{
   display: flex;
   padding: 10rpx 40rpx;
   border-bottom: 2rpx solid #EEE;
+}
+.hinttext{
+  width: 100%;
+  height: 1000rpx;
+  line-height: 1000rpx;
+  text-align: center;
+  font-size: 12pt;
+  color: #888;
 }
  .list-images{
   width: 120rpx;
@@ -77,12 +95,12 @@ page{
 }
 .btn{
   position: fixed;
-  top: 85%;
-  left: 85%;
-  width: 110rpx;
-  height: 110rpx;
+  top: 88%;
+  left: 84%;
+  width: 140rpx;
+  height: 140rpx;
 }
 .btn image{
-  width: 100rpx;
-  height: 100rpx;
+  width: 120rpx;
+  height: 120rpx;
 }

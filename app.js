@@ -1,7 +1,7 @@
 //app.js
 App({
   data: {
-    servsers: "https://www.plantgoal.com",
+    servsers: "https://www.goalplant.cn",
     // servsers:"https://70aecedc.ngrok.io"
   },
   onLaunch: function () {

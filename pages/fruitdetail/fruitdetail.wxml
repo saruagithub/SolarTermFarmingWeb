@@ -1,0 +1,3 @@
+<!--pages/fruitdetail/fruitdetail.wxml-->
+<import src='../template/detailTemplate.wxml'/>
+<template is="goalDetailTemplate" data="{{...items}}"/>

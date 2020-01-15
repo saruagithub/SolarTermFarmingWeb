@@ -22,8 +22,12 @@ page{
   color: #13D1BE;
 }
 .hinttext{
+  width: 100%;
+  height: 1000rpx;
+  line-height: 1000rpx;
   text-align: center;
-  font-size: 12pt
+  font-size: 12pt;
+  color: #888;
 }
 /*list-box*/
 .list-view{
@@ -48,26 +52,35 @@ page{
   height: 78rpx;
 }
 .list-text {
-  width: 550rpx;
+  width: 420rpx;
   height: 110rpx;
   margin-left: 20rpx;
-  padding-top: 10rpx;
+  padding: 16rpx;
   color: #353535;
   /* background-size:60rpx; */
 }
 .list-text .name{
   height: 50rpx;
-  width: 550rpx;
-  padding: 10rpx;
+  width: 420rpx;
+  float: left;
   font-size: 12pt;
+  margin-bottom: 10rpx;
+}
+.list-finish{
+  height: 120rpx;
+  width: 130rpx;
+  float: right;
+  color: #13D1BE;
+  line-height: 120rpx;
+  font-size: 10pt;
 }
 .list-text .txt{
   font-size: 8pt;
-  width: 100%;
+  width: 420rpx;
   height: 30rpx;
   color:#b2b2b2;
-  float: right;
-  text-align: right;
+  /* float: left; */
+  text-align: left;
 }
 .swiper-box{
   height: 100%;
@@ -77,12 +90,12 @@ page{
 }
 .btn{
   position: fixed;
-  top: 90%;
-  left: 85%;
-  width: 110rpx;
-  height: 110rpx;
+  top: 89%;
+  left: 84%;
+  width: 140rpx;
+  height: 140rpx;
 }
 .btn image{
-  width: 100rpx;
-  height: 100rpx;
+  width: 120rpx;
+  height: 120rpx;
 }

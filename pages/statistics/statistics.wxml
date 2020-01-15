@@ -1,33 +1,40 @@
-<!--pages/statistics/statistics.wxml-->
-<view class="list-tab">
+<!-- pages/statistics/statistics.wxml -->
+ <view class="list-tab">
     <ul>
-        <li class="{{current == 0 ? 'active' : ''}}" catchtap="switchDate" data-index="0">本周</li>
-        <li class="{{current == 1 ? 'active' : ''}}" catchtap="switchDate" data-index="1">本月</li>
-        <li class="{{current == 2 ? 'active' : ''}}" catchtap="switchDate" data-index="2">今年</li>
+         <li class="{{current == 0 ? 'active' : ''}}" catchtap="switchDate" data-index="0">本周</li>
+         <li class="{{current == 1 ? 'active' : ''}}" catchtap="switchDate" data-index="1">本月</li> 
+        <li class="{{current == 2 ? 'active' : ''}}" catchtap="switchDate" data-index="2">今年</li>    
+        <!-- <li class="active" data-index="2">今年</li> -->
     </ul>
+</view> 
+<view class='swiper-box'>
+  <view class='chart'><canvas class='canvas1' canvas-id='columnCanvas'></canvas></view>
+  <view class='panChart'><canvas class='canvas2' canvas-id='ringCanvas1'></canvas></view>
+  <view class='panChart'><canvas class='canvas3' canvas-id='ringCanvas2'></canvas></view>
+  <view class='hint'><text>提示：未完成的目标越多，时间越久，拖延率也会升高，要尽快完成喔</text></view>
 </view>
-<swiper class="swiper-box"  current="{{current}}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="changeDate">
+
+<!-- <swiper class="swiper-box"  current="{{current}}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="changeDate">
   <block>
-      <!-- 1 -->
-      <swiper-item>
+      <swiper-item wx:if="{{current == 0}}">
         <view class='chart'><canvas class='canvas1' canvas-id='columnCanvas'></canvas></view>
         <view class='panChart'><canvas class='canvas2' canvas-id='ringCanvas1'></canvas></view>
         <view class='panChart'><canvas class='canvas3' canvas-id='ringCanvas2'></canvas></view>
-        <view class='hint'><text>提示：未完成的目标越多，拖延率也会升高，要尽快完成喔</text></view>
+        <view class='hint'><text>提示：未完成的目标越多，时间越久，拖延率也会升高，要尽快完成喔</text></view>
       </swiper-item>
-        <!-- 2 -->
-      <swiper-item>
+
+      <swiper-item wx:if="{{current == 1}}">
         <view class='chart'><canvas class='canvas1' canvas-id='columnCanvas'></canvas></view>
         <view class='panChart'><canvas class='canvas2' canvas-id='ringCanvas1'></canvas></view>
         <view class='panChart'><canvas class='canvas3' canvas-id='ringCanvas2'></canvas></view>
-        <view class='hint'><text>提示：未完成的目标越多，拖延率也会升高，要尽快完成喔</text></view>
+        <view class='hint'><text>提示：未完成的目标越多，时间越久，拖延率也会升高，要尽快完成喔</text></view>
       </swiper-item>
-        <!-- 3 -->
-      <swiper-item>
+
+      <swiper-item wx:if="{{current == 2}}">
         <view class='chart'><canvas class='canvas1' canvas-id='columnCanvas'></canvas></view>
         <view class='panChart'><canvas class='canvas2' canvas-id='ringCanvas1'></canvas></view>
         <view class='panChart'><canvas class='canvas3' canvas-id='ringCanvas2'></canvas></view>
-        <view class='hint'><text>提示：未完成的目标越多，拖延率也会升高，要尽快完成喔</text></view>
+        <view class='hint'><text>提示：未完成的目标越多，时间越久，拖延率也会升高，要尽快完成喔</text></view>
       </swiper-item>
   </block>
-</swiper>
+</swiper> -->

@@ -6,6 +6,8 @@
     "pages/statistics/statistics",
     "pages/detail/detail",
     "pages/newseed/newseed",
+    "pages/rethink/rethink",
+    "pages/fruitdetail/fruitdetail",
     "pages/template/detailTemplate"
   ],
   "tabBar":{
@@ -23,7 +25,7 @@
       "pagePath": "pages/fruitlist/fruitlist",
       "iconPath": "pages/image/icon_fruit1.png",
       "selectedIconPath": "pages/image/icon_fruit2.png",
-      "text": "收获果实"
+      "text": "已获果实"
     }]
   },
   "window":{

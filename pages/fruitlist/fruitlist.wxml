@@ -1,59 +1,90 @@
 <!--pages/fruitlist/fruitlist.wxml-->
 <view class="list-tab">
-    <ul>
+  <view class='form-group'>  
+    <view class='day'><text>年</text></view>
+    <picker disabled='true' bindchange="yearPickerChange" value="{{yearIndex}}" range="{{yearArray}}"> 
+      <text>{{yearArray[yearIndex]}}</text>
+      <!-- <view class="picker active">
+        {{yearArray[yearIndex]}}
+      </view> -->
+    </picker>
+  </view> 
+  <view class='form-group'>
+    <view class='day'><text>月</text></view>
+    <picker class='active' bindchange="monthPickerChange" value="{{monthIndex}}" range="{{monthArray}}"> 
+       <text>{{monthArray[monthIndex]}}</text>
+    </picker>
+  </view> 
+    <!-- <ul>
         <li class="{{current == 0 ? 'active' : ''}}" catchtap="switchDate" data-index="0">本周</li>
         <li class="{{current == 1 ? 'active' : ''}}" catchtap="switchDate" data-index="1">本月</li>
         <li class="{{current == 2 ? 'active' : ''}}" catchtap="switchDate" data-index="2">今年</li>
-    </ul>
+    </ul> -->
 </view>
 
-<swiper class="swiper-box"  current="{{current}}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="changeDate">
+
+<view class='hinttext' wx:if="{{showData == 1}}"><text>暂无果实，快去完成目标吧</text></view>
+<scroll-view scroll-y="true" class="scroll-box" wx:else>
+  <view class="list-view" >
+    <view class="list-box" wx:for="{{listgoods1}}" wx:for-item="list" wx:key="index" data-id="{{list.record_id}}" bindtap="lookdetail">
+        <view class="list-images" ><image src="{{list.fruit_img}}" /></view>
+        <view class="list-text">
+            <view class="name"><text>{{list.title}}</text></view>
+            <view class="txt"><text>完成于 {{list.finished_date}}</text></view>
+        </view>
+    </view>
+  </view>
+</scroll-view>
+
+<!-- <swiper class="swiper-box"  current="{{current}}" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="changeDate">
   <block>
-  <!-- 1 -->
+
     <swiper-item>
-      <scroll-view scroll-y="true" class="scroll-box">
+    <view class='hinttext' wx:if="{{showData == 1}}"><text>暂无果实，快去完成目标吧</text></view>
+      <scroll-view scroll-y="true" class="scroll-box" wx:else>
         <view class="list-view" >
-          <view class="list-box" wx:for="{{listgoods1}}" wx:for-item="list" wx:key="index" data-id="{{list.id}}" bindtap="lookdetail">
+          <view class="list-box" wx:for="{{listgoods1}}" wx:for-item="list" wx:key="index" data-id="{{list.record_id}}" bindtap="lookdetail">
               <view class="list-images" ><image src="{{list.fruit_img}}" /></view>
               <view class="list-text">
-                  <view class="name"><text>{{list.content}}</text></view>
-                  <view class="txt"><text>完成日期 {{list.finished_date}}</text></view>
+                  <view class="name"><text>{{list.title}}</text></view>
+                  <view class="txt"><text>完成于 {{list.finished_date}}</text></view>
+              </view>
+          </view>
+        </view>
+      </scroll-view>
+    </swiper-item>
+
+    <swiper-item>
+    <view class='hinttext' wx:if="{{showData == 1}}"><text>暂无果实，快去完成目标吧</text></view>
+      <scroll-view scroll-y="true" class="scroll-box" wx:else>
+        <view class="list-view" >
+          <view class="list-box" wx:for="{{listgoods2}}" wx:for-item="list" wx:key="index" data-id="{{list.record_id}}" bindtap="lookdetail">
+              <view class="list-images" ><image src="{{list.fruit_img}}" /></view>
+              <view class="list-text">
+                  <view class="name"><text>{{list.title}}</text></view>
+                  <view class="txt"><text>完成于 {{list.finished_date}}</text></view>
               </view>
           </view>
           </view>
       </scroll-view>
     </swiper-item>
 
-<!--2  -->
     <swiper-item>
-      <scroll-view scroll-y="true" class="scroll-box">
+    <view class='hinttext' wx:if="{{showData == 1}}"><text>暂无果实，快去完成目标吧</text></view>
+      <scroll-view scroll-y="true" class="scroll-box" wx:else>
         <view class="list-view" >
-          <view class="list-box" wx:for="{{listgoods2}}" wx:for-item="list" wx:key="index" data-id="{{list.id}}" bindtap="lookdetail">
+          <view class="list-box" wx:for="{{listgoods3}}" wx:for-item="list" wx:key="index" data-id="{{list.record_id}}" bindtap="lookdetail">
               <view class="list-images" ><image src="{{list.fruit_img}}" /></view>
               <view class="list-text">
-                  <view class="name"><text>{{list.content}}</text></view>
-                  <view class="txt"><text>完成日期 {{list.finished_date}}</text></view>
-              </view>
-          </view>
-          </view>
-      </scroll-view>
-    </swiper-item>
-<!-- 3 -->
-    <swiper-item>
-      <scroll-view scroll-y="true" class="scroll-box">
-        <view class="list-view" >
-          <view class="list-box" wx:for="{{listgoods3}}" wx:for-item="list" wx:key="index" data-id="{{list.id}}" bindtap="lookdetail">
-              <view class="list-images" ><image src="{{list.fruit_img}}" /></view>
-              <view class="list-text">
-                  <view class="name"><text>{{list.content}}</text></view>
-                  <view class="txt"><text>完成日期 {{list.finished_date}}</text></view>
+                  <view class="name"><text>{{list.title}}</text></view>
+                  <view class="txt"><text>完成于 {{list.finished_date}}</text></view>
               </view>
           </view>
           </view>
       </scroll-view>
     </swiper-item>
   </block>
-</swiper>
+</swiper> -->
 
 <view class='btn'>
   <navigator url="../statistics/statistics">

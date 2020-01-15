@@ -1,0 +1,5 @@
+/* pages/fruitdetail/fruitdetail.wxss */
+@import "../template/detailTemplate.wxss";
+page{
+  height: 100%;
+}

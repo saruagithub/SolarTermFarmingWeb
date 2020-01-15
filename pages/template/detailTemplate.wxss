@@ -23,6 +23,9 @@
   display: flex;
   padding: 10rpx 40rpx;
 }
+.section-line{
+  border-top: 2rpx solid #EEE;
+}
 .content_section .section_title{
   width: 100%;
   height: 100rpx;
@@ -30,9 +33,9 @@
   font-size: 12pt;
   line-height: 100rpx;
 }
-.content_section textarea{
+.content_section .textarea{
   width: 100%;
-  height: 500rpx;
+  height: 400rpx;
   padding: 10rpx 50rpx;
   font-size: 10pt;
 }
@@ -41,14 +44,21 @@
   height: 100rpx;
   margin: 0 10rpx;
   line-height: 100rpx;
-  float: right;
 }
 .picker{
-  width: 500rpx;
+  width: 400rpx;
   height: 100rpx;
   margin: 0 10rpx;
   font-size: 12pt;
   line-height: 100rpx;
+  float: left;
+}
+.pulldownbtn{
+  width: 60rpx;
+  height: 60rpx;
+  float: right;
+  margin-right: 40rpx;
+  margin-top: 20rpx;
 }
 .input-text{
   width: 500rpx;
@@ -65,14 +75,25 @@
   line-height: 100rpx;
 }
 .due_date label{
-  margin-right: 10rpx;
+  margin-right: 20rpx;
+}
+.ui-radio radio,.ui-radio checkbox {
+  display: none;
+}
+.ui-radio .text {
+  color: black;
+/*设计样式*/
+}
+.ui-radio.active .text{
+  color: #13D1BE;
+/*设计样式*/
 }
 .btn{
   position: fixed;
-  top: 90%;
-  left: 85%;
-  width: 110rpx;
-  height: 110rpx;
+  top: 89%;
+  left: 84%;
+  width: 140rpx;
+  height: 140rpx;
   border: none;
 } 
 /* .ok{
@@ -83,6 +104,6 @@
   text-align: center;
 } */
  image{
-  width: 100rpx;
-  height: 100rpx;
+  width: 120rpx;
+  height: 120rpx;
 } 
